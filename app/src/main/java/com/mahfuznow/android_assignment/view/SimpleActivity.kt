@@ -7,7 +7,10 @@ import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mahfuznow.android_assignment.R
+import com.mahfuznow.android_assignment.adapter.SimpleActivityRVAdapter
 import com.mahfuznow.android_assignment.model.Country
 import com.mahfuznow.android_assignment.viewmodel.SimpleActivityViewModel
 import java.util.ArrayList
@@ -15,9 +18,9 @@ import java.util.ArrayList
 
 class SimpleActivity : AppCompatActivity() {
 
-    private lateinit var listValues: ArrayList<String>
-    private lateinit var arrayAdapter: ArrayAdapter<String>
-    private lateinit var listView: ListView
+    private lateinit var listValues: ArrayList<Country>
+    private lateinit var rvAdapter: SimpleActivityRVAdapter
+    private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var viewModel: SimpleActivityViewModel
 
@@ -30,19 +33,18 @@ class SimpleActivity : AppCompatActivity() {
         actionBar!!.title = getString(R.string.simple)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        listView = findViewById(R.id.listView)
+        recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progress_bar)
 
         viewModel = ViewModelProvider(this)[SimpleActivityViewModel::class.java]
-        listValues = ArrayList<String>()
-        arrayAdapter = ArrayAdapter(this, R.layout.listview_row_layout, R.id.textView, listValues)
-        listView.adapter = arrayAdapter
 
-        listView.onItemClickListener =
-            OnItemClickListener { parent, view, position, id ->
-                Toast.makeText(this, "You clicked on " + listValues[position], Toast.LENGTH_SHORT)
-                    .show()
-            }
+        listValues = ArrayList<Country>()
+        rvAdapter = SimpleActivityRVAdapter(this,listValues)
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = rvAdapter
+
         observeLiveData()
     }
 
@@ -61,10 +63,10 @@ class SimpleActivity : AppCompatActivity() {
     private fun setValues(countries: List<Country>) {
         listValues.clear()
         for (country in countries) {
-            listValues.add(country.name)
+            listValues.add(country)
             progressBar.visibility = View.INVISIBLE
         }
-        arrayAdapter.notifyDataSetChanged()
+        rvAdapter.notifyDataSetChanged()
     }
 
     private fun onError() {
