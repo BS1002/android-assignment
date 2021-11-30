@@ -13,6 +13,7 @@ class DelegateActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.delegate)
         actionBar.setDisplayHomeAsUpEnabled(true)
+
     }
 
 
