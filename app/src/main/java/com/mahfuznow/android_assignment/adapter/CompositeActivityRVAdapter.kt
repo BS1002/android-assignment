@@ -52,7 +52,7 @@ class CompositeActivityRVAdapter(
             }
             VIEW_TYPE_AD -> {
                 holder as AdViewHolder
-                holder.textView.text = countries[position].name
+                holder.textView.text = country.name
                 Glide.with(holder.itemView.context)
                     .load(country.flags.png)
                     .placeholder(R.drawable.ic_launcher_foreground)
