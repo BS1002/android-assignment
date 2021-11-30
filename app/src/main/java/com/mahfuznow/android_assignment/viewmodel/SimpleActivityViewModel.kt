@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class SimpleActivityViewModel : ViewModel() {
     private val service: CountryService = CountryService()
     private val countriesLiveData: MutableLiveData<List<Country>> = MutableLiveData<List<Country>>()
-    val isErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val isErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         //instantiate the mutable live data

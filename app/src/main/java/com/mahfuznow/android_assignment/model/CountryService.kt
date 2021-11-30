@@ -9,8 +9,7 @@ class CountryService : CountryAPI {
     private var api: CountryAPI
 
     // As we are implementing the CountryAPI interface here, we need to define its functions.
-    override val countries: Single<List<Country>>
-        get() = api.countries
+    override val countries: Single<List<Country>> get() = api.countries
 
     companion object {
         //const val BASE_URL = "https://mahfuznow.com/api/countries/"

@@ -19,12 +19,6 @@ class SimpleActivityRVAdapter(
 ) :
     RecyclerView.Adapter<SimpleActivityRVAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val linearLayout: LinearLayout = view.findViewById(R.id.linearLayout)
-        val textView: TextView = view.findViewById(R.id.textView)
-        val imageView: ImageView = view.findViewById(R.id.imageView)
-    }
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.row_layout, viewGroup, false)
@@ -40,11 +34,16 @@ class SimpleActivityRVAdapter(
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(viewHolder.imageView)
 
-        viewHolder.linearLayout.setOnClickListener(View.OnClickListener {
+        viewHolder.itemView.setOnClickListener() {
             Toast.makeText(context, "You have clicked " + country.name, Toast.LENGTH_SHORT).show()
-        })
+        }
     }
 
     override fun getItemCount() = countries.size
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val textView: TextView = view.findViewById(R.id.textView)
+        val imageView: ImageView = view.findViewById(R.id.imageView)
+    }
 
 }
