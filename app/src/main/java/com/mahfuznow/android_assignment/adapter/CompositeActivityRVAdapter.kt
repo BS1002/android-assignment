@@ -12,15 +12,17 @@ import com.bumptech.glide.Glide
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.model.Country
 
-private const val VIEW_TYPE_ITEM = 0
-private const val VIEW_TYPE_AD = 1
-private const val VIEW_INTERVALS = 5
-
 class CompositeActivityRVAdapter(
     private val context: Context,
     private val countries: List<Country>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        private const val VIEW_TYPE_ITEM = 0
+        private const val VIEW_TYPE_AD = 1
+        private const val VIEW_INTERVALS = 5
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_TYPE_AD)

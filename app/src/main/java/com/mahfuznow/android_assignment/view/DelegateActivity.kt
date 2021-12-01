@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.model.Country
-import com.mahfuznow.android_assignment.model.Flags
 
 class DelegateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,10 +16,7 @@ class DelegateActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val myList = mutableListOf<Any>()
-        myList.add("string")
-        myList.add(Country("lsdfj","skdfj", Flags("dskfj","sfdj")))
     }
-
 
     //for back arrow functionality
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

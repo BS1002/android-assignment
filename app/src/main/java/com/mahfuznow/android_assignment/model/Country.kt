@@ -1,7 +1,9 @@
 package com.mahfuznow.android_assignment.model
 
-data class Country(val name: String, val capital: String, val flags: Flags) {}
-data class Flags(val svg: String, val png: String) {}
+data class Country(val name: String, val capital: String, val flags: Flags) {
+    data class Flags(val svg: String, val png: String) {}
+}
+
 
 /*
     ******** Response from https://restcountries.com/v2/ endpoint *********

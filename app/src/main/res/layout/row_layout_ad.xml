@@ -29,12 +29,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:padding="10dp"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
             android:text="List Value"
-            android:textColor="@color/black"
             android:textSize="20sp"
             android:gravity="center"
             />
