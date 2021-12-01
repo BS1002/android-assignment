@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.mahfuznow.android_assignment.R
+import com.mahfuznow.android_assignment.model.Country
 
 class DelegateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +15,8 @@ class DelegateActivity : AppCompatActivity() {
         actionBar!!.title = getString(R.string.delegate)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
+        val myList = mutableListOf<Any>()
     }
-
 
     //for back arrow functionality
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
