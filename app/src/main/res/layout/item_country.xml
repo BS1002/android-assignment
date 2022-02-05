@@ -15,15 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
 
         <TextView
             android:id="@+id/textView"
@@ -32,9 +31,7 @@
             android:padding="10dp"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
-            android:text="List Value"
-            android:textSize="20sp"
-            android:gravity="center"
-            />
+            android:text="@string/list_value"
+            android:textSize="18sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

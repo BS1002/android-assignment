@@ -39,7 +39,7 @@ class SimpleActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[SimpleActivityViewModel::class.java]
 
         listValues = ArrayList<Country>()
-        rvAdapter = SimpleActivityRVAdapter(this,listValues)
+        rvAdapter = SimpleActivityRVAdapter(this, listValues)
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -50,14 +50,18 @@ class SimpleActivity : AppCompatActivity() {
 
 
     private fun observeLiveData() {
-        viewModel.getCountriesLiveData().observe(this,
-            { countries -> setValues(countries) })
-        viewModel.getIsErrorLiveData().observe(this,
-            { isError ->
-                if (isError) {
-                    onError()
-                }
-            })
+        viewModel.getCountriesLiveData().observe(
+            this
+        ) { countries ->
+            setValues(countries)
+        }
+        viewModel.getIsErrorLiveData().observe(
+            this
+        ) { isError ->
+            if (isError) {
+                onError()
+            }
+        }
     }
 
     private fun setValues(countries: List<Country>) {

@@ -27,10 +27,10 @@ class CompositeActivityRVAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_TYPE_AD)
             return AdViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.row_layout_ad, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_country_large, parent, false)
             )
         return ItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.row_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false)
         )
     }
 

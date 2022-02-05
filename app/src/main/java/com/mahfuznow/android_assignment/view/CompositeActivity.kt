@@ -29,7 +29,7 @@ class CompositeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_simple)
+        setContentView(R.layout.activity_composite)
 
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.composite)
@@ -52,14 +52,14 @@ class CompositeActivity : AppCompatActivity() {
 
 
     private fun observeLiveData() {
-        viewModel.getCountriesLiveData().observe(this,
-            { countries -> setValues(countries) })
-        viewModel.getIsErrorLiveData().observe(this,
-            { isError ->
-                if (isError) {
-                    onError()
-                }
-            })
+        viewModel.getCountriesLiveData().observe(this
+        ) { countries -> setValues(countries) }
+        viewModel.getIsErrorLiveData().observe(this
+        ) { isError ->
+            if (isError) {
+                onError()
+            }
+        }
     }
 
     private fun setValues(countries: List<Country>) {
