@@ -1,6 +1,7 @@
 package com.mahfuznow.android_assignment.view
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.adapter.DelegateActivityRVAdapter
 import com.mahfuznow.android_assignment.model.Country
@@ -29,6 +31,7 @@ class DelegateActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DelegateActivityViewModel
     private lateinit var adapter: DelegateActivityRVAdapter
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,11 @@ class DelegateActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         observeLiveData()
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.reloadData()
+        }
     }
 
 
@@ -100,6 +108,7 @@ class DelegateActivity : AppCompatActivity() {
 
     private fun onError(msg: String) {
         progressBar.visibility = View.INVISIBLE
+        swipeRefreshLayout.isRefreshing = false
         Toast.makeText(this, "Failed to load data $msg's data", Toast.LENGTH_SHORT).show()
     }
 
@@ -107,6 +116,7 @@ class DelegateActivity : AppCompatActivity() {
         if (!isValueSet) { //IMPORTANT
             if (!isErrorCountry && !isErrorUser) {
                 progressBar.visibility = View.INVISIBLE
+                swipeRefreshLayout.isRefreshing = false
                 mergedList = mergeList(countries, user.results!!)
                 mergedList.shuffle()
                 adapter.items = mergedList //IMPORTANT
@@ -122,10 +132,23 @@ class DelegateActivity : AppCompatActivity() {
         return mergedList
     }
 
-    //for back arrow functionality
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.delegate_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home)
-            finish()
+        when (item.itemId) {
+            R.id.home -> {
+                finish()
+            }
+            R.id.menu_item_countries -> {
+               item.isChecked = !item.isChecked
+            }
+            R.id.menu_item_users -> {
+                item.isChecked = !item.isChecked
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 }

@@ -5,4 +5,6 @@
     <string name="composite">Composite</string>
     <string name="delegate">Delegate</string>
     <string name="list_value">List Value</string>
+    <string name="countries">Countries</string>
+    <string name="users">Users</string>
 </resources>

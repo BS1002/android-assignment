@@ -58,4 +58,8 @@ class DelegateActivityViewModel : ViewModel() {
             })
     }
 
+    fun reloadData() {
+        fetchUsers()
+    }
+
 }
