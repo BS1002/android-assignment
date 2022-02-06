@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,27 +13,21 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.adapter.DelegateActivityRVAdapter
-import com.mahfuznow.android_assignment.model.Country
-import com.mahfuznow.android_assignment.model.User
-import com.mahfuznow.android_assignment.model.userdata.Result
 import com.mahfuznow.android_assignment.viewmodel.DelegateActivityViewModel
-import kotlin.collections.ArrayList
 
 
 class DelegateActivity : AppCompatActivity() {
 
-    private var isErrorCountry: Boolean = true
-    private var isErrorUser: Boolean = true
-    private val isValueSet: Boolean = false
-
-    private var countries: List<Country> = ArrayList()
-    private var user: User = User()
-    private var mergedList: ArrayList<Any> = ArrayList()
+    private var listItems: ArrayList<Any> = ArrayList()
 
     private lateinit var viewModel: DelegateActivityViewModel
     private lateinit var adapter: DelegateActivityRVAdapter
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var swipeRefreshListener: SwipeRefreshLayout.OnRefreshListener
+
+    private var isLoadCountry = true
+    private var isLoadUser = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +38,14 @@ class DelegateActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         viewModel = ViewModelProvider(this)[DelegateActivityViewModel::class.java]
+        viewModel.fetchData(isLoadCountry, isLoadUser)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progress_bar)
 
         adapter = DelegateActivityRVAdapter(this)
         //items is a field defined in super class of the adapter
-        adapter.items = mergedList
+        adapter.items = listItems
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -58,52 +54,33 @@ class DelegateActivity : AppCompatActivity() {
         observeLiveData()
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
-        swipeRefreshLayout.setOnRefreshListener {
-            viewModel.reloadData()
+        swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+            viewModel.reFetchData(isLoadCountry, isLoadUser)
         }
+        swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
     }
 
 
     private fun observeLiveData() {
-        viewModel.countriesLiveData.observe(
+        viewModel.listItems.observe(
             this
-        ) { countries ->
-            this.countries = countries
-            onSuccess("Country")
+        ) { listItems ->
+            this.listItems = listItems
+            //Toast.makeText(this, "Data loaded successfully", Toast.LENGTH_SHORT).show()
+            setValues()
         }
         viewModel.isErrorCountryLiveData.observe(
             this
         ) { isError ->
             if (isError)
                 onError("Country")
-            else {
-                isErrorCountry = false
-                setValues()
-            }
-        }
-
-        viewModel.userLiveData.observe(
-            this
-        ) { user ->
-            this.user = user
-            onSuccess("User")
         }
         viewModel.isErrorUserLiveData.observe(
             this
         ) { isError ->
             if (isError)
                 onError("User")
-            else {
-                isErrorUser = false
-                setValues()
-            }
-
         }
-    }
-
-    private fun onSuccess(msg: String) {
-        Toast.makeText(this, "$msg's data loaded successfully", Toast.LENGTH_SHORT).show()
-        setValues()
     }
 
     private fun onError(msg: String) {
@@ -113,23 +90,10 @@ class DelegateActivity : AppCompatActivity() {
     }
 
     private fun setValues() {
-        if (!isValueSet) { //IMPORTANT
-            if (!isErrorCountry && !isErrorUser) {
-                progressBar.visibility = View.INVISIBLE
-                swipeRefreshLayout.isRefreshing = false
-                mergedList = mergeList(countries, user.results!!)
-                mergedList.shuffle()
-                adapter.items = mergedList //IMPORTANT
-                adapter.notifyDataSetChanged()
-            }
-        }
-    }
-
-    private fun mergeList(list1: List<Country>, list2: List<Result>): ArrayList<Any> {
-        val mergedList: ArrayList<Any> = ArrayList()
-        mergedList.addAll(list1)
-        mergedList.addAll(list2)
-        return mergedList
+        progressBar.visibility = View.INVISIBLE
+        swipeRefreshLayout.isRefreshing = false
+        adapter.items = listItems //IMPORTANT
+        adapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -139,14 +103,20 @@ class DelegateActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.home -> {
+            android.R.id.home -> {
                 finish()
             }
             R.id.menu_item_countries -> {
-               item.isChecked = !item.isChecked
+                item.isChecked = !item.isChecked
+                isLoadCountry = item.isChecked
+                swipeRefreshLayout.isRefreshing = true
+                swipeRefreshListener.onRefresh()
             }
             R.id.menu_item_users -> {
                 item.isChecked = !item.isChecked
+                isLoadUser = item.isChecked
+                swipeRefreshLayout.isRefreshing = true
+                swipeRefreshListener.onRefresh()
             }
         }
         return super.onOptionsItemSelected(item)
