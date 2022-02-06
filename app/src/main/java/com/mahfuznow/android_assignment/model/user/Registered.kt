@@ -1,4 +1,4 @@
-package com.mahfuznow.android_assignment.model.userdata
+package com.mahfuznow.android_assignment.model.user
 
 data class Registered(
     val age: Int,

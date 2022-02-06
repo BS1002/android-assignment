@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.adapter.CompositeActivityRVAdapter
-import com.mahfuznow.android_assignment.adapter.SimpleActivityRVAdapter
-import com.mahfuznow.android_assignment.model.Country
+import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.viewmodel.SimpleActivityViewModel
 import java.util.ArrayList
 

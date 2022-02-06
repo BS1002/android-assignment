@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.android_assignment.R
-import com.mahfuznow.android_assignment.model.userdata.Result
+import com.mahfuznow.android_assignment.model.user.Result
 
 class UserResultAdapterDelegate(private val context: Context) :
     AdapterDelegate<ArrayList<Any>>() {

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.android_assignment.R
-import com.mahfuznow.android_assignment.model.Country
+import com.mahfuznow.android_assignment.model.country.Country
 
 class CountryAdapterDelegate(private val context: Context) :
     AdapterDelegate<ArrayList<Any>>() {

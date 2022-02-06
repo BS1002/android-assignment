@@ -2,15 +2,15 @@ package com.mahfuznow.android_assignment.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mahfuznow.android_assignment.model.Country
-import com.mahfuznow.android_assignment.model.CountryService
+import com.mahfuznow.android_assignment.model.country.Country
+import com.mahfuznow.android_assignment.repository.remote.CountryApiService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 
 class SimpleActivityViewModel : ViewModel() {
-    private val service: CountryService = CountryService()
+    private val apiService: CountryApiService = CountryApiService()
     private val countriesLiveData: MutableLiveData<List<Country>> = MutableLiveData<List<Country>>()
     private val isErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -20,7 +20,7 @@ class SimpleActivityViewModel : ViewModel() {
     }
 
     private fun fetchCountries() {
-        service.countries
+        apiService.countries
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<List<Country>>() {

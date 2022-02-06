@@ -1,11 +1,22 @@
-package com.mahfuznow.android_assignment.model
+package com.mahfuznow.android_assignment.model.country
 
-data class Country(val name: String, val capital: String, val flags: Flags) {
-    data class Flags(val svg: String, val png: String) {}
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Country(
+    val name: String,
+    val capital: String?,
+    @Embedded
+    val flags: Flags
+) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
 }
 
 
-/*
+/**
     ******** Response from https://restcountries.com/v2/ endpoint *********
     [
         {

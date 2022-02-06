@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -32,6 +33,8 @@ android {
 }
 def retrofitVersion = "2.9.0"
 def rxJavaVersion = "3.0.0"
+def roomVersion = "2.4.1"
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -58,5 +61,11 @@ dependencies {
 
     //Swipe to refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Room Database
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //RxJava3 support for Room
+    implementation("androidx.room:room-rxjava3:$roomVersion")
 
 }

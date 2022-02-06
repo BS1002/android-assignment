@@ -1,21 +1,21 @@
-package com.mahfuznow.android_assignment.model
+package com.mahfuznow.android_assignment.repository.remote
 
+import com.mahfuznow.android_assignment.model.country.Country
 import io.reactivex.rxjava3.core.Single
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class UserService : UserAPI {
-    private var api: UserAPI
+class CountryApiService : CountryApi {
+    private var api: CountryApi
 
     // As we are implementing the CountryAPI interface here, we need to define its functions.
-    override fun getUserResults(numberOfUser: Int): Single<User> {
-        return api.getUserResults(numberOfUser)
-    }
+    override val countries: Single<List<Country>> get() = api.countries
 
     companion object {
-        const val BASE_URL = "https://randomuser.me/";
+        //const val BASE_URL = "https://mahfuznow.com/api/countries/"
+        //public static final String BASE_URL = "https://restcountries.eu/rest/v2/";
+        const val BASE_URL = "https://restcountries.com/v2/";
     }
 
     init {
@@ -24,6 +24,6 @@ class UserService : UserAPI {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
-        api = retrofit.create(UserAPI::class.java)
+        api = retrofit.create(CountryApi::class.java)
     }
 }
