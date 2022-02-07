@@ -8,7 +8,6 @@ import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.model.user.Result
 import com.mahfuznow.android_assignment.model.user.User
 import com.mahfuznow.android_assignment.repository.Repository
-import com.mahfuznow.android_assignment.repository.remote.UserApiService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -17,13 +16,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class DelegateActivityViewModel(application: Application) : AndroidViewModel(application) {
     private var countries: List<Country> = ArrayList()
     var isErrorCountryLiveData: MutableLiveData<Boolean> = MutableLiveData()
-
-    private val repository = Repository(application)
-
-    private val userApiService: UserApiService = UserApiService()
     private var userResults: List<Result> = ArrayList()
     var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
+    private val repository = Repository(application)
     var listItems: MutableLiveData<ArrayList<Any>> = MutableLiveData()
 
     private var isLoadCountry = true
@@ -38,7 +34,7 @@ class DelegateActivityViewModel(application: Application) : AndroidViewModel(app
         if (isLoadUser)
             fetchUsers()
         if (!isLoadCountry && !isLoadUser)
-            listItems.value = ArrayList()
+            listItems.value = ArrayList() //Empty
     }
 
     fun reFetchData(isLoadCountry: Boolean, isLoadUser: Boolean) {
@@ -55,36 +51,42 @@ class DelegateActivityViewModel(application: Application) : AndroidViewModel(app
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<List<Country>>() {
                 override fun onSuccess(items: List<Country>) {
+                    Log.d("TAG", "fetchCountries: Loaded Successfully")
                     countries = items
                     isErrorCountryLiveData.value = false
-                    updateListItems()
+                    updateListItemsObservable()
                     repository.storeCountriesLocally(countries)
                 }
 
                 override fun onError(e: Throwable) {
+                    Log.d("TAG", "fetchCountries: Failed")
                     isErrorCountryLiveData.value = true
                 }
             })
     }
 
     private fun fetchUsers() {
-        userApiService.getUserResults(200)
+        repository.getUsers()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<User>() {
                 override fun onSuccess(user: User) {
+                    Log.d("TAG", "fetchUsers: Loaded Successfully")
                     userResults = user.results
                     isErrorUserLiveData.value = false
-                    updateListItems()
+                    updateListItemsObservable()
+                    repository.storeUsersLocally(user)
                 }
 
                 override fun onError(e: Throwable) {
+                    Log.d("TAG", "fetchUsers: Failed")
                     isErrorUserLiveData.value = true
                 }
             })
     }
 
-    private fun updateListItems() {
+    private fun updateListItemsObservable() {
+        Log.d("TAG", "updateListItemsObservable: ")
         val mergedList: ArrayList<Any> = ArrayList()
         if (isLoadCountry && isLoadUser) {
             if (isErrorCountryLiveData.value == false && isErrorUserLiveData.value == false) {
@@ -92,7 +94,6 @@ class DelegateActivityViewModel(application: Application) : AndroidViewModel(app
                 mergedList.addAll(userResults)
                 mergedList.shuffle()
                 listItems.value = mergedList
-                Log.d("TAG", "updateListItems: ")
             }
         } else if (isLoadCountry) {
             mergedList.addAll(countries)

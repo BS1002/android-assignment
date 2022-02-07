@@ -22,4 +22,14 @@ class PrefHelper(application: Application) {
     fun getIsCountryCached(): Boolean {
         return sharedPreferences.getBoolean("isCountryCached", false)
     }
+
+    fun setIsUserCached() {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isUserCached", true)
+        editor.apply()
+    }
+
+    fun getIsUserCached(): Boolean {
+        return sharedPreferences.getBoolean("isUserCached", false)
+    }
 }

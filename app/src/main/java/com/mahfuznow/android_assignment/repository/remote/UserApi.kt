@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface UserApi {
     @GET("api")
-    fun getUserResults(@Query("results") numberOfUser: Int): Single<User>
+    fun getUserResponse(@Query("results") numberOfUser: Int): Single<User>
 }

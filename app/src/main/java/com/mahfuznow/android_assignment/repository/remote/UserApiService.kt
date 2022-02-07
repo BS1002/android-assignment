@@ -10,8 +10,8 @@ class UserApiService : UserApi {
     private var api: UserApi
 
     // As we are implementing the CountryAPI interface here, we need to define its functions.
-    override fun getUserResults(numberOfUser: Int): Single<User> {
-        return api.getUserResults(numberOfUser)
+    override fun getUserResponse(numberOfUser: Int): Single<User> {
+        return api.getUserResponse(numberOfUser)
     }
 
     companion object {

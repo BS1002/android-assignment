@@ -1,9 +1,31 @@
 package com.mahfuznow.android_assignment.model.user
 
+import androidx.room.*
+import com.google.gson.Gson
+
+@Entity
 data class User(
-    val info: Info,
+    @Embedded
+    val info: Info?,
+    @ColumnInfo(name= "userResults")
     val results: List<Result>
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
+
+    //ROOM database can't store List<Result> as a row
+    //We need to convert it into JSON string and store it
+    class Converters {
+        @TypeConverter
+        fun fromArrayList(results: List<Result>): String {
+            return Gson().toJson(results)
+        }
+        @TypeConverter
+        fun fromString(string: String): List<Result> {
+            return Gson().fromJson(string, Array<Result>::class.java).toList()
+        }
+    }
+}
 
 /**
  ******** Response from https://randomuser.me/api?results=1 endpoint *********
