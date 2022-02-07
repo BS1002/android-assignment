@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 
-class DelegateActivityViewModel(application: Application) : AndroidViewModel(application) {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private var countries: List<Country> = ArrayList()
     var isErrorCountryLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private var userResults: List<Result> = ArrayList()

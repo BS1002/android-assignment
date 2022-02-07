@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Android Assignment</string>
     <string name="app_subtitle">Recycler View</string>
-    <string name="simple">Simple</string>
-    <string name="composite">Composite</string>
-    <string name="delegate">Delegate</string>
+    <string name="dagger">Dagger</string>
     <string name="list_value">List Value</string>
     <string name="countries">Countries</string>
     <string name="users">Users</string>
