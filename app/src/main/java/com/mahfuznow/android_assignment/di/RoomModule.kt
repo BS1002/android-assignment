@@ -10,7 +10,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RoomModule {
+object RoomModule {
 
     @Singleton
     @Provides

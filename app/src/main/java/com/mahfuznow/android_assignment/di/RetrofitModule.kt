@@ -11,11 +11,10 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class RetrofitModule {
-    companion object {
-        const val COUNTRY_BASE_URL = "https://restcountries.com/v2/"
-        const val USER_BASE_URL = "https://randomuser.me/"
-    }
+object RetrofitModule {
+
+    private const val COUNTRY_BASE_URL = "https://restcountries.com/v2/"
+    private const val USER_BASE_URL = "https://randomuser.me/"
 
     @Singleton
     @Provides
@@ -30,7 +29,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun getCountryApi(@Named("country") countryRetrofit: Retrofit) : CountryApi {
+    fun getCountryApi(@Named("country") countryRetrofit: Retrofit): CountryApi {
         return countryRetrofit.create(CountryApi::class.java)
     }
 
@@ -47,7 +46,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun getUserApi(@Named("user") userRetrofit: Retrofit) : UserApi {
+    fun getUserApi(@Named("user") userRetrofit: Retrofit): UserApi {
         return userRetrofit.create(UserApi::class.java)
     }
 }
