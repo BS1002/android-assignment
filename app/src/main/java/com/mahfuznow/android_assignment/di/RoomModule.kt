@@ -10,27 +10,25 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RoomModule(application: Application) {
-
-    private var roomDb: RoomDb = Room.databaseBuilder(application, RoomDb::class.java, "my-app")
-        .fallbackToDestructiveMigration()
-        .build()
+class RoomModule {
 
     @Singleton
     @Provides
-    fun getRoomInstance(): RoomDb {
-        return roomDb
+    fun getRoomInstance(application: Application): RoomDb {
+        return Room.databaseBuilder(application, RoomDb::class.java, "my-app")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton
     @Provides
-    fun gerCountryDao(): CountryDao {
+    fun gerCountryDao(roomDb: RoomDb): CountryDao {
         return roomDb.getCountryDao()
     }
 
     @Singleton
     @Provides
-    fun gerUserDao(): UserDao {
+    fun gerUserDao(roomDb: RoomDb): UserDao {
         return roomDb.getUserDao()
     }
 }

@@ -3,8 +3,6 @@ package com.mahfuznow.android_assignment.repository
 import android.app.Application
 import android.util.Log
 import com.mahfuznow.android_assignment.di.DaggerDatabaseComponent
-import com.mahfuznow.android_assignment.di.RetrofitModule
-import com.mahfuznow.android_assignment.di.RoomModule
 import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.model.user.User
 import com.mahfuznow.android_assignment.repository.local.CountryDao
@@ -20,10 +18,8 @@ import javax.inject.Inject
 class Repository(application: Application) {
 
     init {
-        //val databaseComponent = DaggerDatabaseComponent.create() //this won't work here, as we need to pass application context in RoomModule manually
         val databaseComponent = DaggerDatabaseComponent.builder()
-            .retrofitModule(RetrofitModule())
-            .roomModule(RoomModule(application))
+            .setApplication(application)
             .build()
         databaseComponent.inject(this)
     }
@@ -75,7 +71,7 @@ class Repository(application: Application) {
 
     }
 
-    
+
     fun getUsers(): Single<User> {
         return if (prefHelper.getIsCountryCached()) {
             Log.d("TAG", "getUsers: Loading from Local Database")
