@@ -18,9 +18,7 @@ import javax.inject.Inject
 class Repository(application: Application) {
 
     init {
-        val databaseComponent = DaggerDatabaseComponent.builder()
-            .setApplication(application)
-            .build()
+        val databaseComponent = DaggerDatabaseComponent.factory().create(application)
         databaseComponent.inject(this)
     }
 

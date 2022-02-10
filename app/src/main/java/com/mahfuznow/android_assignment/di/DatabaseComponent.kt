@@ -13,9 +13,8 @@ interface DatabaseComponent {
 
     fun inject(repository: Repository)
 
-    @Component.Builder
-    interface Builder {
-        fun build() : DatabaseComponent
-        fun setApplication(@BindsInstance application: Application): Builder
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance application: Application): DatabaseComponent
     }
 }
