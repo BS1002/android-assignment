@@ -2,7 +2,6 @@ package com.mahfuznow.android_assignment.repository
 
 import android.app.Application
 import android.util.Log
-import com.mahfuznow.android_assignment.di.DaggerDatabaseComponent
 import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.model.user.User
 import com.mahfuznow.android_assignment.repository.local.CountryDao
@@ -15,30 +14,13 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class Repository(application: Application) {
-
-    init {
-        val databaseComponent = DaggerDatabaseComponent.factory().create(application)
-        databaseComponent.inject(this)
-    }
-
-    //Local Database
-    @Inject
-    lateinit var countryDao: CountryDao
-
-    @Inject
-    lateinit var userDao: UserDao
-
-
-    //Remote Database
-    @Inject
-    lateinit var countryApi: CountryApi
-
-    @Inject
-    lateinit var userApi: UserApi
-
-    //Shared Preference
-    private val prefHelper = PrefHelper(application)
+class Repository @Inject constructor(
+    private val countryDao: CountryDao,
+    private val userDao: UserDao,
+    private val countryApi: CountryApi,
+    private val userApi: UserApi,
+    private val prefHelper: PrefHelper
+) {
 
 
     fun getCountries(): Single<List<Country>> {
@@ -68,7 +50,6 @@ class Repository(application: Application) {
         }
 
     }
-
 
     fun getUsers(): Single<User> {
         return if (prefHelper.getIsCountryCached()) {

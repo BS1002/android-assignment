@@ -1,26 +1,31 @@
 package com.mahfuznow.android_assignment.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.model.user.Result
 import com.mahfuznow.android_assignment.model.user.User
 import com.mahfuznow.android_assignment.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
+@HiltViewModel
+class MainActivityViewModel @Inject constructor() : ViewModel() {
 
-class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
+    @Inject
+    lateinit var repository: Repository
+
     private var countries: List<Country> = ArrayList()
-    var isErrorCountryLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private var userResults: List<Result> = ArrayList()
-    var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    private val repository = Repository(application)
+    //Observables
     var listItems: MutableLiveData<ArrayList<Any>> = MutableLiveData()
+    var isErrorCountryLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     private var isLoadCountry = true
     private var isLoadUser = true

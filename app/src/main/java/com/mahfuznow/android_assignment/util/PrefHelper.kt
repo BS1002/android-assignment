@@ -3,8 +3,9 @@ package com.mahfuznow.android_assignment.util
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
-class PrefHelper(application: Application) {
+class PrefHelper @Inject constructor(application: Application) {
 
     companion object {
         const val MY_PREFS_NAME = "MyPrefsFile"

@@ -6,28 +6,31 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.adapter.DelegateActivityRVAdapter
 import com.mahfuznow.android_assignment.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainActivityViewModel by viewModels()
 
     private var listItems: ArrayList<Any> = ArrayList()
 
-    private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: DelegateActivityRVAdapter
     private lateinit var progressBar: ProgressBar
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var swipeRefreshListener: SwipeRefreshLayout.OnRefreshListener
 
     private var isLoadCountry = true
     private var isLoadUser = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         actionBar!!.title = getString(R.string.dagger)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewModel.fetchData(isLoadCountry, isLoadUser)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
@@ -122,3 +125,4 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+
