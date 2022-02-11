@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.android_assignment.R
 import com.mahfuznow.android_assignment.adapter.DelegateActivityRVAdapter
+import com.mahfuznow.android_assignment.databinding.ActivityMainBinding
 import com.mahfuznow.android_assignment.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,10 +32,12 @@ class MainActivity : AppCompatActivity() {
     private var isLoadCountry = true
     private var isLoadUser = true
 
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.dagger)
@@ -43,8 +46,8 @@ class MainActivity : AppCompatActivity() {
         //viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewModel.fetchData(isLoadCountry, isLoadUser)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        progressBar = findViewById(R.id.progress_bar)
+        val recyclerView: RecyclerView = binding.recyclerView
+        progressBar = binding.progressBar
 
         adapter = DelegateActivityRVAdapter(this)
         //items is a field defined in super class of the adapter
@@ -56,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         observeLiveData()
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             viewModel.reFetchData(isLoadCountry, isLoadUser)
         }
