@@ -1,15 +1,21 @@
 package com.mahfuznow.android_assignment.model.user
 
+import android.os.Parcelable
 import androidx.room.*
 import com.google.gson.Gson
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 @Entity
 data class User(
     @Embedded
     val info: Info?,
     @ColumnInfo(name= "userResults")
     val results: List<Result>
-) {
+) : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
 

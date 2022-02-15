@@ -1,5 +1,9 @@
 package com.mahfuznow.android_assignment.model.user
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Login(
     val md5: String,
     val password: String,
@@ -8,4 +12,4 @@ data class Login(
     val sha256: String,
     val username: String,
     val uuid: String
-)
+) : Parcelable

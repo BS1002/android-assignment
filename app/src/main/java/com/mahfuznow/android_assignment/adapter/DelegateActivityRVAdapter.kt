@@ -1,16 +1,17 @@
 package com.mahfuznow.android_assignment.adapter
 
-import android.content.Context
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
+import javax.inject.Inject
 
-class DelegateActivityRVAdapter(
-    context: Context
+class DelegateActivityRVAdapter@Inject constructor(
+    countryAdapterDelegate: CountryAdapterDelegate,
+    userResultAdapterDelegate: UserResultAdapterDelegate
 ) : ListDelegationAdapter<ArrayList<Any>>() {
 
     init {
         // delegatesManager is a field defined in super class
         // ViewType integer is assigned internally by delegatesManager
-        delegatesManager.addDelegate(CountryAdapterDelegate(context))
-        delegatesManager.addDelegate(UserResultAdapterDelegate(context))
+        delegatesManager.addDelegate(countryAdapterDelegate)
+        delegatesManager.addDelegate(userResultAdapterDelegate)
     }
 }

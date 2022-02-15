@@ -1,5 +1,10 @@
 package com.mahfuznow.android_assignment.model.country
 
-data class Flags(val svg: String, val png: String) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
+@Parcelize
+data class Flags(val svg: String, val png: String) : Parcelable {
 
 }

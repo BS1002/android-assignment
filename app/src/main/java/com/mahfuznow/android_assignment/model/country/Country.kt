@@ -1,16 +1,27 @@
 package com.mahfuznow.android_assignment.model.country
 
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 @Entity
 data class Country(
-    val name: String,
+    val name: String?,
+    val nativeName: String?,
     val capital: String?,
+    val region: String?,
+    val population: String?,
+    val area: String?,
+    val independent: String?,
     @Embedded
-    val flags: Flags
-) {
+    val flags: Flags?
+): Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
 }

@@ -1,6 +1,5 @@
 package com.mahfuznow.android_assignment.repository
 
-import android.app.Application
 import android.util.Log
 import com.mahfuznow.android_assignment.model.country.Country
 import com.mahfuznow.android_assignment.model.user.User

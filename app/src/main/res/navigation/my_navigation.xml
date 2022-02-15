@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.mahfuznow.android_assignment.view.ListFragment"
+        android:label="List Fragment">
+        <action
+            android:id="@+id/action_listFragment_to_countryDetailsFragment"
+            app:destination="@id/CountryDetailsFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CountryDetailsFragment"
+        android:name="com.mahfuznow.android_assignment.view.CountryDetailsFragment"
+        android:label="Country Details"
+        tools:layout="@layout/fragment_country_details">
+        <action
+            android:id="@+id/action_countryDetailsFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="country"
+            app:argType="com.mahfuznow.android_assignment.model.country.Country" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.mahfuznow.android_assignment.view.UserDetailsFragment"
+        android:label="User Details"
+        tools:layout="@layout/fragment_user_details">
+        <action
+            android:id="@+id/action_userDetailsFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="userResult"
+            app:argType="com.mahfuznow.android_assignment.model.user.Result" />
+    </fragment>
+    
+</navigation>

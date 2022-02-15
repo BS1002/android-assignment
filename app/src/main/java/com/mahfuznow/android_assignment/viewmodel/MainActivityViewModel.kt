@@ -14,10 +14,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var repository: Repository
+class MainActivityViewModel @Inject constructor(
+    val repository: Repository
+) : ViewModel() {
 
     private var countries: List<Country> = ArrayList()
     private var userResults: List<Result> = ArrayList()
@@ -27,10 +26,14 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
     var isErrorCountryLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var isLoadCountry = true
-    private var isLoadUser = true
+    var isLoadCountry = true
+    var isLoadUser = true
 
-    fun fetchData(isLoadCountry: Boolean, isLoadUser: Boolean) {
+    init {
+        fetchData(isLoadCountry, isLoadUser)
+    }
+
+    private fun fetchData(isLoadCountry: Boolean, isLoadUser: Boolean) {
         this.isLoadCountry = isLoadCountry
         this.isLoadUser = isLoadUser
 
