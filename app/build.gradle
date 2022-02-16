@@ -34,6 +34,7 @@ android {
         jvmTarget = '1.8'
     }
     viewBinding.enabled = true
+    dataBinding.enabled = true
 }
 def retrofitVersion = "2.9.0"
 def rxJavaVersion = "3.0.0"

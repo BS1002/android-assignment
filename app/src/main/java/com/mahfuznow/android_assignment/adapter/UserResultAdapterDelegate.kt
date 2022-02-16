@@ -39,21 +39,13 @@ class UserResultAdapterDelegate @Inject constructor(private val application: App
         userResult as Result
         holder as UserResultViewHolder
 
-        with(holder.binding) {
-            val name = userResult.name
-            val fullName = name.title + " " + name.first + " " + name.last
-            textView.text = fullName
-            Glide.with(root.context)
-                .load(userResult.picture.medium)
-                .apply(RequestOptions.circleCropTransform())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(imageView)
-            root.setOnClickListener {
-                //Toast.makeText(application, "You have clicked user: $fullName", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(it).navigate(
-                    ListFragmentDirections.actionListFragmentToUserDetailsFragment(userResult)
-                )
-            }
+        holder.binding.userResult = userResult
+
+        holder.binding.root.setOnClickListener {
+            //Toast.makeText(application, "You have clicked user: $fullName", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(it).navigate(
+                ListFragmentDirections.actionListFragmentToUserDetailsFragment(userResult)
+            )
         }
     }
 

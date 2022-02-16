@@ -1,135 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.UserDetailsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/image"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher_round" />
+    <data>
+
+        <variable
+            name="userResult"
+            type="com.mahfuznow.android_assignment.model.user.Result" />
+    </data>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        tools:context=".view.UserDetailsFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/image"
+            loadCircularImage="@{userResult.picture.large}"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/image"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:labelFor="@+id/name"
-            android:text="@string/name" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/name"
+                android:text="@string/name" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:text="@{userResult.name.title + ` ` + userResult.name.first + ` ` + userResult.name.last}"
+                android:textSize="18sp" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/gender"
-            android:text="@string/gender" />
-
-        <TextView
-            android:id="@+id/gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gender"
-            android:textSize="18sp" />
-
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/dob"
-            android:text="@string/date_of_birth" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/gender"
+                android:text="@string/gender" />
 
-        <TextView
-            android:id="@+id/dob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date_of_birth"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/gender"
+                android:text="@{userResult.gender}"
+                android:textSize="18sp" />
 
-        <View style="@style/Divider.Horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/email"
-            android:text="@string/email" />
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textSize="18sp" />
-
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/cell"
-            android:text="@string/cell" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/dob"
+                android:text="@string/date_of_birth" />
 
-        <TextView
-            android:id="@+id/cell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cell"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/date_of_birth"
+                android:text="@{userResult.dob.date}"
+                android:textSize="18sp" />
 
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/phone"
-            android:text="@string/phone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/email"
+                android:text="@string/email" />
 
-        <TextView
-            android:id="@+id/phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:text="@{userResult.email}"
+                android:textSize="18sp" />
 
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/address"
-            android:text="@string/address" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/address"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/cell"
+                android:text="@string/cell" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/cell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/cell"
+                android:text="@{userResult.cell}"
+                android:textSize="18sp" />
+
+            <View style="@style/Divider.Horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/phone"
+                android:text="@string/phone" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone"
+                android:text="@{userResult.phone}"
+                android:textSize="18sp" />
+
+            <View style="@style/Divider.Horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/address"
+                android:text="@string/address" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/address"
+                android:text="@{userResult.location.city + ` , `+ userResult.location.state + ` , ` + userResult.location.country}"
+                android:textSize="18sp" />
+
+            <View style="@style/Divider.Horizontal" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-
-</LinearLayout>
+</layout>

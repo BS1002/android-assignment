@@ -25,23 +25,8 @@ class CountryDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            with(binding) {
-                val country = CountryDetailsFragmentArgs.fromBundle(it).country
-                country.flags?.let {
-                    Glide.with(requireContext())
-                        .load(it.png)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .into(flag)
-                }
-                name.text = country.name
-                nativeName.text = country.nativeName
-                capital.text = country.capital
-                region.text = country.region
-                population.text = country.population
-                area.text = country.area
-                independent.text = country.independent
-            }
-
+            val country = CountryDetailsFragmentArgs.fromBundle(it).country
+            binding.country = country
         }
 
     }

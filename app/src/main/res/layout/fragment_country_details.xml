@@ -1,132 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.CountryDetailsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/flag"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:contentDescription="@string/flag"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher_round" />
+    <data>
 
+        <variable
+            name="country"
+            type="com.mahfuznow.android_assignment.model.country.Country" />
+    </data>
+
+    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        tools:context=".view.CountryDetailsFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/flag"
+            loadImage="@{country.flags.png}"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/flag"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:labelFor="@+id/name"
-            android:text="@string/name" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/name"
+                android:text="@string/name" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:text="@{country.name}"
+                android:textSize="18sp" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/nativeName"
-            android:text="@string/native_name" />
-
-        <TextView
-            android:id="@+id/nativeName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/native_name"
-            android:textSize="18sp" />
-
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/capital"
-            android:text="@string/capital" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/nativeName"
+                android:text="@string/native_name" />
 
-        <TextView
-            android:id="@+id/capital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/capital"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/nativeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/native_name"
+                android:text="@{country.nativeName}"
+                android:textSize="18sp" />
 
-        <View style="@style/Divider.Horizontal" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/region"
-            android:text="@string/region" />
 
-        <TextView
-            android:id="@+id/region"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/region"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/capital"
+                android:text="@string/capital" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/capital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/capital"
+                android:text="@{country.capital}"
+                android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/population"
-            android:text="@string/population" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:id="@+id/population"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/population"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/region"
+                android:text="@string/region" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/region"
+                android:text="@{country.region}"
+                android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/area"
-            android:text="@string/area" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:id="@+id/area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/area"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/population"
+                android:text="@string/population" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/population"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/population"
+                android:text="@{country.population}"
+                android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/independent"
-            android:text="@string/independent" />
+            <View style="@style/Divider.Horizontal" />
 
-        <TextView
-            android:id="@+id/independent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/independent"
-            android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/area"
+                android:text="@string/area" />
 
-        <View style="@style/Divider.Horizontal" />
+            <TextView
+                android:id="@+id/area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/area"
+                android:text="@{country.area}"
+                android:textSize="18sp" />
+
+            <View style="@style/Divider.Horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/independent"
+                android:text="@string/independent" />
+
+            <TextView
+                android:id="@+id/independent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/independent"
+                android:text="@{country.independent}"
+                android:textSize="18sp" />
+
+            <View style="@style/Divider.Horizontal" />
+        </LinearLayout>
+
     </LinearLayout>
 
-
-</LinearLayout>
+</layout>

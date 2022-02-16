@@ -39,20 +39,13 @@ class CountryAdapterDelegate @Inject constructor(private val application: Applic
         country as Country
         holder as CountryViewHolder
 
-        with(holder.binding) {
-            textView.text = country.name
-            country.flags?.let {
-                Glide.with(root.context)
-                    .load(it.png)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(imageView)
-            }
-            root.setOnClickListener {
-                //Toast.makeText(application, "You have clicked country: " + country.name, Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(it).navigate(
-                    ListFragmentDirections.actionListFragmentToCountryDetailsFragment(country)
-                )
-            }
+        holder.binding.country = country
+
+        holder.binding.root.setOnClickListener {
+            //Toast.makeText(application, "You have clicked country: " + country.name, Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(it).navigate(
+                ListFragmentDirections.actionListFragmentToCountryDetailsFragment(country)
+            )
         }
     }
 
