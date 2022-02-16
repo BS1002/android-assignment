@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.android_assignment.R
+import com.mahfuznow.android_assignment.databinding.ItemUserBinding
 import com.mahfuznow.android_assignment.model.user.Result
 import com.mahfuznow.android_assignment.view.ListFragmentDirections
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class UserResultAdapterDelegate @Inject constructor(private val application: App
 
     public override fun onCreateViewHolder(parent: ViewGroup) =
         UserResultViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+            ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     public override fun onBindViewHolder(
@@ -37,24 +38,24 @@ class UserResultAdapterDelegate @Inject constructor(private val application: App
         val userResult = items[position]
         userResult as Result
         holder as UserResultViewHolder
-        val name = userResult.name
-        val fullName = name.title + " " + name.first + " " + name.last
-        holder.textView.text = fullName
-        Glide.with(holder.itemView.context)
-            .load(userResult.picture.medium)
-            .apply(RequestOptions.circleCropTransform())
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(holder.imageView)
 
-        holder.itemView.setOnClickListener {
-            //Toast.makeText(application, "You have clicked user: $fullName", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(it)
-                .navigate(ListFragmentDirections.actionListFragmentToUserDetailsFragment(userResult))
+        with(holder.binding) {
+            val name = userResult.name
+            val fullName = name.title + " " + name.first + " " + name.last
+            textView.text = fullName
+            Glide.with(root.context)
+                .load(userResult.picture.medium)
+                .apply(RequestOptions.circleCropTransform())
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(imageView)
+            root.setOnClickListener {
+                //Toast.makeText(application, "You have clicked user: $fullName", Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(it).navigate(
+                    ListFragmentDirections.actionListFragmentToUserDetailsFragment(userResult)
+                )
+            }
         }
     }
 
-    class UserResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.textView)
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
-    }
+    class UserResultViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 }

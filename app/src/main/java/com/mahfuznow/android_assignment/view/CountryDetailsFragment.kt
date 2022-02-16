@@ -25,20 +25,22 @@ class CountryDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val country = CountryDetailsFragmentArgs.fromBundle(it).country
-            country.flags?.let {
-                Glide.with(requireContext())
-                    .load(country.flags.png)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(binding.flag)
+            with(binding) {
+                val country = CountryDetailsFragmentArgs.fromBundle(it).country
+                country.flags?.let {
+                    Glide.with(requireContext())
+                        .load(it.png)
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .into(flag)
+                }
+                name.text = country.name
+                nativeName.text = country.nativeName
+                capital.text = country.capital
+                region.text = country.region
+                population.text = country.population
+                area.text = country.area
+                independent.text = country.independent
             }
-            binding.name.text = country.name
-            binding.nativeName.text = country.nativeName
-            binding.capital.text = country.capital
-            binding.region.text = country.region
-            binding.population.text = country.population
-            binding.area.text = country.area
-            binding.independent.text = country.independent
 
         }
 

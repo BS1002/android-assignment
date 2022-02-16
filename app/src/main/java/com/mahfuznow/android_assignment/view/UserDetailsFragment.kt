@@ -27,24 +27,24 @@ class UserDetailsFragment : Fragment() {
 
         arguments?.let {
             val userResult = UserDetailsFragmentArgs.fromBundle(it).userResult
-            Glide.with(requireContext())
-                .load(userResult.picture.large)
-                .apply(RequestOptions.circleCropTransform())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(binding.image)
-
-            val name = userResult.name
-            val fullName = name.title + " " + name.first + " " + name.last
-            binding.name.text = fullName
-            binding.gender.text = userResult.gender
-            binding.dob.text = userResult.dob.date
-            binding.email.text = userResult.email
-            binding.cell.text = userResult.cell
-            binding.phone.text = userResult.phone
-            val location = userResult.location
-            val address = location.city + ", " + location.state + ", " + location.country
-            binding.address.text = address
-
+            with(binding) {
+                Glide.with(requireContext())
+                    .load(userResult.picture.large)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(image)
+                val name = userResult.name
+                val fullName = name.title + " " + name.first + " " + name.last
+                this.name.text = fullName
+                gender.text = userResult.gender
+                dob.text = userResult.dob.date
+                email.text = userResult.email
+                cell.text = userResult.cell
+                phone.text = userResult.phone
+                val location = userResult.location
+                val address = location.city + ", " + location.state + ", " + location.country
+                this.address.text = address
+            }
         }
 
     }
